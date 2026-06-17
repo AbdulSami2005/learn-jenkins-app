@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('Build') {
             steps {
                 bat '''
@@ -14,10 +15,19 @@ pipeline {
                 '''
             }
         }
-        stage('Test'){
-            steps{
-                sh 'test -f build/index.html'
+
+        stage('Test') {
+            steps {
+                bat '''
+                    if exist build\\index.html (
+                        echo Build Successful
+                    ) else (
+                        echo Build Failed
+                        exit /b 1
+                    )
+                '''
             }
         }
+
     }
 }
