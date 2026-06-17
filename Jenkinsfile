@@ -12,6 +12,8 @@ pipeline {
                     npm install
 
                     npm run build
+
+                    dir
                 '''
             }
         }
@@ -22,7 +24,8 @@ pipeline {
                     if exist build\\index.html (
                         echo Build Successful
                     ) else (
-                        echo Build Failed
+                        echo Build folder not found
+                        dir
                         exit /b 1
                     )
                 '''
