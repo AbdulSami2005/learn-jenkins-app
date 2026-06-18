@@ -10,17 +10,11 @@ pipeline {
                 }
             }
         }
-
+        
         stage('Test') {
             steps {
-                bat '''
-                if exist build\\index.html (
-                    echo Build Successful
-                ) else (
-                    echo Build folder not found
-                    dir
-                    exit /b 1
-                )
+                sh '''
+                test -f build/index.html
                 '''
             }
         }
@@ -38,5 +32,8 @@ pipeline {
                 bat 'docker run -d --name my-react-app -p 3000:80 react-jenkins-app'
             }
         }
+
+
+        
     }
 }
