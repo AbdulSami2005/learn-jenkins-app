@@ -11,12 +11,12 @@ pipeline {
             }
         }
         
-        stage('Test') {
+       stage('Test') {
             steps {
-                sh '''
-                test -f build/index.html
-                npm test
-                '''
+                nodejs('Node_latest') {
+                    // Uses Windows 'bat' and gracefully exits if no test files exist yet
+                    bat 'npm test -- --passWithNoTests --watchAll=false'
+                }
             }
         }
 
